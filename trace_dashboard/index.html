@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RED Trace Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <div>
+            <p class="eyebrow">LangGraph Trace</p>
+            <h1>RED Slow Thinking Dashboard</h1>
+          </div>
+          <button id="refreshBtn" class="ghost-btn">立即刷新</button>
+        </div>
+        <div class="sidebar-meta">
+          <span id="traceCount">0 traces</span>
+          <span id="pollState">轮询中</span>
+        </div>
+        <div id="traceList" class="trace-list"></div>
+      </aside>
+
+      <main class="main">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">Trace Detail</p>
+            <h2 id="heroTitle">选择左侧一条 trace</h2>
+            <p id="heroSubtitle" class="muted">页面会每 2 秒自动轮询，尽量接近实时地展示每个节点的输入输出。</p>
+          </div>
+          <div class="hero-badges">
+            <span id="traceStatus" class="badge badge-neutral">待选择</span>
+            <span id="traceReason" class="badge badge-neutral">reason</span>
+            <span id="traceSimTime" class="badge badge-neutral">sim_time</span>
+          </div>
+        </section>
+
+        <section class="grid summary-grid">
+          <article class="panel">
+            <h3>总体上下文</h3>
+            <div id="summaryContext" class="kv-stack empty">暂无数据</div>
+          </article>
+          <article class="panel">
+            <h3>Guard / Submit</h3>
+            <div id="summaryGuard" class="kv-stack empty">暂无数据</div>
+          </article>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <h3>节点视图</h3>
+            <p class="muted">`analyst / commander / allocator / operator / critic`</p>
+          </div>
+          <div id="nodeGrid" class="node-grid"></div>
+        </section>
+
+        <section class="grid lower-grid">
+          <article class="panel">
+            <div class="section-head">
+              <h3>LLM 调用摘要</h3>
+              <p class="muted">每个节点的模型调用与解析过程</p>
+            </div>
+            <div id="llmCallList" class="call-list empty">暂无数据</div>
+          </article>
+          <article class="panel">
+            <div class="section-head">
+              <h3>其他追踪段</h3>
+              <p class="muted">Parsed Actions / 原始文本片段</p>
+            </div>
+            <div id="rawSections" class="raw-sections empty">暂无数据</div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <template id="traceItemTpl">
+      <button class="trace-item">
+        <div class="trace-item-top">
+          <strong class="trace-id"></strong>
+          <span class="trace-status badge badge-neutral"></span>
+        </div>
+        <div class="trace-item-meta"></div>
+        <div class="trace-nodes"></div>
+      </button>
+    </template>
+
+    <template id="nodeCardTpl">
+      <article class="node-card">
+        <div class="node-card-head">
+          <div>
+            <p class="node-name"></p>
+            <p class="node-meta muted"></p>
+          </div>
+          <span class="node-status badge badge-neutral"></span>
+        </div>
+        <div class="node-body">
+          <div class="node-block">
+            <h4>输出摘要</h4>
+            <pre class="node-output"></pre>
+          </div>
+          <div class="node-block">
+            <h4>输入 Prompt</h4>
+            <pre class="node-prompt empty">该节点当前没有模型 prompt，可能走的是规则/确定性路径。</pre>
+          </div>
+          <div class="node-block">
+            <h4>模型原始输出</h4>
+            <pre class="node-response empty">暂无模型原始输出。</pre>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

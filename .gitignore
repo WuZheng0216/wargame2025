@@ -1,0 +1,59 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Runtime logs and traces
+logs/
+*.log
+red_trace_*.jsonl
+red_trace_*.log
+red_trace_live.json
+
+# Generated model outputs
+llm_outputs/
+test/llm_outputs/
+
+# Generated experiment artifacts
+test/batches/
+test/logs/
+test/battle_logs/
+test/diagnostics/
+test/archive/
+test/analysis_lowcost_latest.json
+
+# Generated reflection / dashboard artifacts
+reflection/
+reflection_reconstructed/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

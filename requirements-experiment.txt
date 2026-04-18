@@ -1,0 +1,4 @@
+jieba==0.42.1
+python-dotenv==1.2.1
+httpx==0.28.1
+scikit-learn==1.8.0

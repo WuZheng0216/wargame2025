@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RED Trace Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <div>
+            <p class="eyebrow">LangGraph Trace</p>
+            <h1>RED Slow Thinking Dashboard</h1>
+          </div>
+          <button id="refreshBtn" class="ghost-btn" type="button">Refresh now</button>
+        </div>
+        <div class="sidebar-meta">
+          <span id="traceCount">0 traces</span>
+          <span id="pollState">Polling...</span>
+        </div>
+        <div id="traceList" class="trace-list"></div>
+      </aside>
+
+      <main class="main">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">Trace Detail</p>
+            <h2 id="heroTitle">Select a trace</h2>
+            <p id="heroSubtitle" class="muted">
+              The dashboard keeps polling in the background without forcing your detail view to jump.
+            </p>
+          </div>
+          <div class="hero-badges">
+            <span id="detailUpdateBadge" class="badge badge-accent hidden">Update ready</span>
+            <span id="traceStatus" class="badge badge-neutral">status</span>
+            <span id="traceReason" class="badge badge-neutral">reason</span>
+            <span id="traceSimTime" class="badge badge-neutral">sim_time</span>
+          </div>
+        </section>
+
+        <section class="grid summary-grid">
+          <article class="panel">
+            <h3>Context</h3>
+            <div id="summaryContext" class="kv-stack empty">No context data.</div>
+          </article>
+          <article class="panel">
+            <h3>Guard / Submit</h3>
+            <div id="summaryGuard" class="kv-stack empty">No guard or submit data.</div>
+          </article>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <h3>Node Views</h3>
+            <p class="muted">analyst / commander / allocator / operator / critic</p>
+          </div>
+          <div id="nodeGrid" class="node-grid"></div>
+        </section>
+
+        <section class="grid lower-grid">
+          <article class="panel">
+            <div class="section-head">
+              <h3>LLM Calls</h3>
+              <p class="muted">Prompt, response, and parse timing per node call.</p>
+            </div>
+            <div id="llmCallList" class="call-list empty">No LLM call data.</div>
+          </article>
+          <article class="panel">
+            <div class="section-head">
+              <h3>Raw Sections</h3>
+              <p class="muted">Parsed actions and raw trace snippets.</p>
+            </div>
+            <div id="rawSections" class="raw-sections empty">No raw section data.</div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <template id="traceItemTpl">
+      <button class="trace-item" type="button">
+        <div class="trace-item-top">
+          <strong class="trace-id"></strong>
+          <span class="trace-status badge badge-neutral"></span>
+        </div>
+        <div class="trace-item-meta"></div>
+        <div class="trace-item-mark hidden">New trace</div>
+        <div class="trace-nodes"></div>
+      </button>
+    </template>
+
+    <template id="nodeCardTpl">
+      <article class="node-card">
+        <div class="node-card-head">
+          <div>
+            <p class="node-name"></p>
+            <p class="node-meta muted"></p>
+            <p class="node-stats muted"></p>
+          </div>
+          <span class="node-status badge badge-neutral"></span>
+        </div>
+        <div class="node-body">
+          <div class="node-block">
+            <h4>Output Summary</h4>
+            <pre class="node-output"></pre>
+          </div>
+          <div class="node-block">
+            <h4>Input Prompt</h4>
+            <pre class="node-prompt empty">This node has no LLM prompt in the current path.</pre>
+          </div>
+          <div class="node-block">
+            <h4>Raw Response</h4>
+            <pre class="node-response empty">No raw response recorded.</pre>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
